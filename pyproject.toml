@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "frontier-scholar"
+dynamic = ["version"]
+description = "fs: the command-line client of FrontierScholar, a research wiki over ~1M computer-science arXiv papers, for coding agents."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "Apache-2.0" }
+dependencies = []
+keywords = ["arxiv", "literature-search", "research", "wiki", "agents", "cli"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Environment :: Console",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering",
+]
+
+[project.urls]
+Homepage = "https://frontier-scholar.com"
+Documentation = "https://frontier-scholar.com/docs/"
+Repository = "https://github.com/FrontierScholar/FrontierScholar"
+
+[project.scripts]
+fs = "frontier_scholar.cli:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "frontier_scholar.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

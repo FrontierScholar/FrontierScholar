@@ -84,6 +84,17 @@ tests/                  CLI tests
 CHANGELOG.md            release notes of the CLI and the skill
 ```
 
+## Contact
+
+Questions, bug reports, and requests for a higher quota:
+[chenjianlv@mail.ustc.edu.cn](mailto:chenjianlv@mail.ustc.edu.cn),
+[liandefu@ustc.edu.cn](mailto:liandefu@ustc.edu.cn).
+
+## Acknowledgements
+
+We thank the [DeepXiv](https://github.com/DeepXiv/deepxiv_sdk) team for DeepXiv-SDK, their open-source agentic data
+interface for scientific literature.
+
 ## License
 
 Apache-2.0, see `LICENSE`.

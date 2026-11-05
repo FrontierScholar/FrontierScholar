@@ -4,7 +4,7 @@ description: Search ~1.01M computer-science papers and a curated research wiki w
 license: Apache-2.0
 compatibility: The `fs` command (`pip install frontier-scholar`, Python 3.8+, no other dependencies). It needs network access to https://frontier-scholar.com; no account or API key is needed for anonymous use.
 metadata:
-  version: "2.4.5"
+  version: "0.2.0"
   skill-author: FrontierScholar
   last-reviewed: "2026-11-05"
 ---

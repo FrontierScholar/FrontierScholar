@@ -20,6 +20,11 @@ classifiers = [
     "Topic :: Scientific/Engineering",
 ]
 
+maintainers = [
+    { name = "FrontierScholar", email = "chenjianlv@mail.ustc.edu.cn" },
+    { name = "FrontierScholar", email = "liandefu@ustc.edu.cn" },
+]
+
 [project.urls]
 Homepage = "https://frontier-scholar.com"
 Documentation = "https://frontier-scholar.com/docs/"

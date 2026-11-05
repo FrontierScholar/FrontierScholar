@@ -16,8 +16,8 @@ import urllib.request
 from typing import Any, Callable, Dict, Optional
 
 DEFAULT_BASE = "https://frontier-scholar.com"      # the public endpoint; FS_BASE points elsewhere
-RETRY_CODES = {"rate_limited", "unavailable"}     # 1.2.1: a timeout is deterministic (the same call times out again)
-# 1.2.3: non-JSON answers from a proxy in front of the service (too many requests, restarting, tunnel down)
+RETRY_CODES = {"rate_limited", "unavailable"}     # a timeout is deterministic (the same call times out again): not retried
+# non-JSON answers from a proxy in front of the service (too many requests, restarting, tunnel down)
 RETRY_HTTP = {"http_429", "http_502", "http_503"}
 MAX_WAIT = 90          # seconds; a longer retry_after (a daily allowance used up) is reported, not slept through
 

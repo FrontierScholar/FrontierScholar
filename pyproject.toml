@@ -21,6 +21,7 @@ classifiers = [
 ]
 
 maintainers = [
+    { name = "FrontierScholar", email = "philipgaq@mail.ustc.edu.cn" },
     { name = "FrontierScholar", email = "chenjianlv@mail.ustc.edu.cn" },
     { name = "FrontierScholar", email = "liandefu@ustc.edu.cn" },
 ]

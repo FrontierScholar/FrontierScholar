@@ -5,6 +5,10 @@ Two things are versioned here, each with its own number:
 - the `fs` command-line client, published on PyPI as `frontier-scholar` (`fs --version` prints it);
 - the `fs-cli` agent skill, in `skills/fs-cli/` (its version is in the `metadata` of `SKILL.md`).
 
+## fs 1.3.1 (2026-11-05)
+
+- Package metadata only: one more maintainer contact. The commands are those of 1.3.0.
+
 ## fs 1.3.0 (2026-11-05) and skill fs-cli 0.1.0
 
 First release from this repository.

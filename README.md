@@ -87,6 +87,7 @@ CHANGELOG.md            release notes of the CLI and the skill
 ## Contact
 
 Questions, bug reports, and requests for a higher quota:
+[philipgaq@mail.ustc.edu.cn](mailto:philipgaq@mail.ustc.edu.cn),
 [chenjianlv@mail.ustc.edu.cn](mailto:chenjianlv@mail.ustc.edu.cn),
 [liandefu@ustc.edu.cn](mailto:liandefu@ustc.edu.cn).
 

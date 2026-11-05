@@ -1,6 +1,6 @@
 """FrontierScholar fs: the command-line client for fs-api v1, and the small Python client it uses (Client)."""
 
-__version__ = "0.2.0"
+__version__ = "1.3.0"
 API_MAJOR = "fs-api/1"
 
 from .client import Client, FsError, DEFAULT_BASE  # noqa: E402

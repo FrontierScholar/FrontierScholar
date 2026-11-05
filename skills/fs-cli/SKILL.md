@@ -2,9 +2,9 @@
 name: fs-cli
 description: Search ~1.01M computer-science papers and a curated research wiki with the `fs` command (FrontierScholar CLI). Use it whenever a task needs CS literature, even if FrontierScholar is not mentioned. This covers finding papers on a topic or before a date cut-off, building a related-work or reading list, finding papers similar to given ones, checking a paper's abstract, method, evaluation or first-version date, finding which papers use a benchmark or dataset, and finding the open problems and rising approaches of a research area. Prefer it over memory for paper ids, titles and dates.
 license: Apache-2.0
-compatibility: The `fs` command (`pip install frontier-scholar`, Python 3.8+, no other dependencies). It needs network access to https://frontier-scholar.com; no account or API key is needed for anonymous use.
+compatibility: The `fs` command, version 1.3 or later (`pip install frontier-scholar`, Python 3.8+, no other dependencies). It needs network access to https://frontier-scholar.com; no account or API key is needed for anonymous use.
 metadata:
-  version: "0.2.0"
+  version: "0.1.0"
   skill-author: FrontierScholar
   last-reviewed: "2026-11-05"
 ---

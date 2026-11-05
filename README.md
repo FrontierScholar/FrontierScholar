@@ -1,6 +1,6 @@
 <p align="center"><img src="https://raw.githubusercontent.com/FrontierScholar/FrontierScholar/main/assets/logo.png" alt="FrontierScholar" width="120"></p>
 
-# FrontierScholar 知沿学术
+# FrontierScholar · 知沿学术
 
 A research wiki of about 1.01M computer-science papers, built for coding agents. Papers are organised into
 domains, topics and subtopics; each subtopic has pages on its research problems, method families, datasets and

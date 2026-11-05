@@ -17,7 +17,7 @@ First release from this repository.
   `https://frontier-scholar.com`, no key needed (`FS_API_KEY` raises the limits, `FS_BASE` points elsewhere).
 - Waits and retries by itself when the endpoint is busy or a rate limit is reached, and says so on stderr; a wait
   longer than 90 s (the daily allowance is used up) is reported at once.
-- Package metadata: maintainers and project links. The commands behave as in 1.2.4.
+- Package metadata: maintainers and project links; wording of the help text. The commands themselves are unchanged.
 - Skill `fs-cli` 0.1.0: when to use `fs`, the layout of the wiki, a worked literature search with a date cut-off,
   common mistakes, how to read paged answers and warnings, dates and cut-offs, and the limits of calls without a key.
   It needs `fs` 1.3 or later.

@@ -2,9 +2,9 @@
 
 # FrontierScholar 知沿学术
 
-A research wiki of about 1.01M computer-science arXiv papers, built for coding agents. Papers are organised into
+A research wiki of about 1.01M computer-science papers, built for coding agents. Papers are organised into
 domains, topics and subtopics; each subtopic has pages on its research problems, method families, datasets and
-benchmarks, and a frontier page of open gaps and rising approaches. Every claim points back to arXiv ids.
+benchmarks, and a frontier page of open gaps and rising approaches. Every claim points back to the papers it comes from.
 
 This repository has the `fs` command-line client and the `fs-cli` agent skill.
 Website and API documentation: <https://frontier-scholar.com>.

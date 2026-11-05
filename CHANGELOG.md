@@ -3,6 +3,11 @@
 The `fs` command-line client (PyPI: `frontier-scholar`) and the `fs-cli` agent skill are released separately; the skill's
 version is in the `metadata` of `skills/fs-cli/SKILL.md`.
 
+## CLI 1.2.4 and skill fs-cli 2.4.5 (2026-11-05)
+
+- Wording only: the help text, the package description, the README and the skill call identifiers "paper ids" and say
+  "first version" for dates; examples use `--topk 20`, which works with and without a key.
+
 ## Skill fs-cli 2.4.4 (2026-11-04)
 
 - `license`, `compatibility` and `metadata` (version, author, last review) in the front matter of `SKILL.md`.

@@ -1,4 +1,4 @@
-"""fs - FrontierScholar: search ~1.01M computer-science arXiv papers and read a research wiki.
+"""fs - FrontierScholar: search ~1.01M computer-science papers and read a research wiki.
 
 The wiki is a tree of research areas, domain / topic / subtopic (e.g. information-retrieval / agentic-search /
 adaptive-retrieval). Each subtopic has an overview (index.md), Problems/, Methods/, Resources/ and Mechanisms/ pages,
@@ -21,7 +21,7 @@ Commands:
 Examples:
   fs select "retrieval augmented generation"                     which domains cover a topic
   fs search wiki --level subtopic "adaptive retrieval"            which subtopics cover it
-  fs search paper "LSM tree compaction" --before 2024-10-01 --topk 50
+  fs search paper "LSM tree compaction" --before 2024-10-01 --topk 20
   fs read information-retrieval/agentic-search/adaptive-retrieval --papers --role all
   fs read 2202.04522/method --section "Core Idea"
   fs related 2202.04522 2307.16693 --by-paper
@@ -61,7 +61,7 @@ def _facet(value: str) -> str:
 
 
 # commands of the old frontier-scholar CLI, and what to use instead
-OLD_COMMANDS = {"paper": "fs read <arxiv id>   (a facet: fs read <id>/method)", "nav": "fs select [--path P]",
+OLD_COMMANDS = {"paper": "fs read <paper id>   (a facet: fs read <id>/method)", "nav": "fs select [--path P]",
                 "dates": "fs meta dates <ids> --before YYYY-MM-DD", "grep": "fs read <folder> --grep PHRASE",
                 "locate": 'fs search wiki --level subtopic "<words>"', "bench": "fs search wiki bench NAME",
                 "frontier": 'fs search wiki frontier "<words>"   or   fs read <subtopic>/frontier.md',
@@ -236,7 +236,7 @@ examples:
     s.add_argument("rest", nargs="*", metavar="[KIND] QUERY", help="wiki: index (default) | pages | frontier | bench, then the query")
     g = s.add_argument_group("all kinds")
     g.add_argument("--path", metavar="P", help="only under this domain / topic / subtopic")
-    g.add_argument("--before", metavar="D", help="YYYY-MM-DD, first arXiv version strictly before D (paper, frontier: gaps "
+    g.add_argument("--before", metavar="D", help="YYYY-MM-DD, first version strictly before D (paper, frontier: gaps "
                                                   "first raised, bench: papers)")
     g = s.add_argument_group("wiki index / pages")
     g.add_argument("--level", choices=["domain", "topic", "subtopic"], help="index: only overviews of this level")
@@ -251,7 +251,7 @@ examples:
     g.add_argument("--status", choices=["open", "partial"], help="gaps with this status")
     g.add_argument("--trend", choices=["rising", "steady", "no-recent"], help="approaches with this trend")
     g = s.add_argument_group("paper")
-    g.add_argument("--after", metavar="D", help="YYYY-MM-DD, first arXiv version strictly after D")
+    g.add_argument("--after", metavar="D", help="YYYY-MM-DD, first version strictly after D")
     g.add_argument("--role", choices=["primary", "secondary", "all"], help="with --path: which subtopic routes count "
                                                                            "(default primary)")
     _paging(s)
@@ -260,14 +260,14 @@ examples:
     # ---------------------------------------------------------------- read
     r = sub.add_parser("read", help="read a folder, page, paper or paper facet; list a subtopic's papers; grep under a path",
                        usage="fs read TARGET... [options]", **_FMT, description="""\
-TARGET (up to 10): a wiki path (folder or .md page), a node id page:<hex>, an arXiv id, or <arXiv id>/<facet>
+TARGET (up to 10): a wiki path (folder or .md page), a node id page:<hex>, a paper id, or <paper id>/<facet>
 with facet overview | problem | method | evaluation | mechanism.
 
   folder         {kind: dir, path, level, title, children[{path, kind, title, approx_tokens?}], papers? (subtopic)}
   page, facet    Markdown between marker lines: <<< title | path | node_id | chars a-b of n >>> ... and a last line
                  with the command for the next chunk (or <<< end of page >>>); --json gives {content, range, ...}
-  arXiv id       {kind: paper, paper_id, title, date, facets (pages that exist), routes[{subtopic, role}],
-                  abstract{text, nature: original}}: the paper's own arXiv abstract, the one original text
+  paper id       {kind: paper, paper_id, title, date, facets (pages that exist), routes[{subtopic, role}],
+                  abstract{text, nature: original}}: the paper's own abstract, the one original text
   --papers       one subtopic's papers, newest first or ranked by --query: {paper_id, title, date, role, score?}
   --grep         matching lines under the first TARGET: {path, matches, lines[{line_no, line}] (<=5)}  (paged)
 
@@ -275,13 +275,13 @@ With several TARGETs, one that fails becomes a not_found warning.""",
                        epilog="""\
 examples:
   fs read information-retrieval/agentic-search/adaptive-retrieval --stat
-  fs read information-retrieval/agentic-search/adaptive-retrieval --papers --role all --before 2024-10-01 --topk 100
+  fs read information-retrieval/agentic-search/adaptive-retrieval --papers --role all --before 2024-10-01 --topk 20
   fs read information-retrieval/agentic-search/adaptive-retrieval/Methods/confidence-gated-retrieval.md --sections
   fs read information-retrieval/agentic-search/adaptive-retrieval/Methods/confidence-gated-retrieval.md --section "Core Idea"
   fs read 2202.04522 2307.16693/method --max-chars 3000
   fs read information-retrieval/agentic-search --grep "confidence gated" --query "retrieval gating"
   fs read information-retrieval/agentic-search --grep "Confidence-Gated" --strict --grep-arg=-w""")
-    r.add_argument("targets", nargs="+", metavar="TARGET", help="path, node id, arXiv id or <arXiv id>/<facet>")
+    r.add_argument("targets", nargs="+", metavar="TARGET", help="path, node id, paper id or <paper id>/<facet>")
     g = r.add_argument_group("folder")
     g.add_argument("--stat", action="store_true", help="add keywords, scope and counts (computed offline)")
     g = r.add_argument_group("page")
@@ -296,8 +296,8 @@ examples:
     g = r.add_argument_group("subtopic paper list")
     g.add_argument("--papers", action="store_true", help="list the subtopic's papers, newest first")
     g.add_argument("--role", choices=["primary", "secondary", "all"], help="which members (default primary)")
-    g.add_argument("--before", metavar="D", help="first arXiv version strictly before YYYY-MM-DD")
-    g.add_argument("--after", metavar="D", help="first arXiv version strictly after YYYY-MM-DD")
+    g.add_argument("--before", metavar="D", help="first version strictly before YYYY-MM-DD")
+    g.add_argument("--after", metavar="D", help="first version strictly after YYYY-MM-DD")
     g = r.add_argument_group("grep under a path")
     g.add_argument("--grep", metavar="PHRASE", help="matching lines in the .md files under the path (case, hyphen, "
                                                     "underscore and spaces normalized); a large folder is checked for about 12 s, then the answer says grep_partial")
@@ -325,9 +325,9 @@ those -> all their papers. The given papers are not returned; clusters holding o
                          epilog="""\
 examples:
   fs related 2202.04522 2307.16693
-  fs related 2202.04522 2307.16693 --by-paper --before 2024-10-01 --topk 50
+  fs related 2202.04522 2307.16693 --by-paper --before 2024-10-01 --topk 20
   fs related 2210.03629 --facet methods --papers-per-cluster 5""")
-    rel.add_argument("ids", nargs="+", metavar="ID", help="1-50 arXiv ids")
+    rel.add_argument("ids", nargs="+", metavar="ID", help="1-50 paper ids")
     rel.add_argument("--facet", action="append", type=_facet, choices=["methods", "resources", "problems", "mechanisms"],
                      help="page kinds whose clusters count (repeatable; default methods and resources)")
     by = rel.add_mutually_exclusive_group()
@@ -350,14 +350,14 @@ fs meta dates ID... --before D --after D
                                    within (true when every given bound holds)}
 
 Up to 200 ids, answered in input order; ids not in the wiki are listed in a not_found warning, unknown dates in
-date_unknown. Dates are arXiv first-version dates.""",
+date_unknown. Dates are first-version dates.""",
                        epilog="""\
 examples:
   fs meta 2202.04522 2307.16693
   fs meta wiki 2202.04522
   fs meta dates 2202.04522 2307.16693 2510.99999 --before 2024-10-01
   fs meta dates 2202.04522 2307.16693 --after 2022-01-01 --before 2024-10-01""")
-    m.add_argument("ids", nargs="+", metavar="[wiki|dates] ID", help="optional kind, then 1-200 arXiv ids")
+    m.add_argument("ids", nargs="+", metavar="[wiki|dates] ID", help="optional kind, then 1-200 paper ids")
     m.add_argument("--before", metavar="D", help="dates: check a YYYY-MM-DD cut-off (first version strictly before D)")
     m.add_argument("--after", metavar="D", help="dates: check a lower bound (first version strictly after D)")
     m.set_defaults(func=cmd_meta)

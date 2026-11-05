@@ -16,7 +16,7 @@ meta, --version) · 3. Errors (see errors.md)
 - Use paths only as they appear in `fs` output; never invent them.
 
 **Paper ids.** All of these are accepted and normalised to the bare form without a version:
-- `2402.03216`, `2402.03216v2`, `arxiv:2402.03216`
+- `2402.03216`, `2402.03216v2`
 - old-style `cs/0601001`
 
 **Dates.** `--before D` keeps dates strictly earlier than `D`; `--after D` keeps dates strictly later than `D`. Papers with an unknown date are dropped by either filter. A timestamp (`2025-04-12T18:43:24+00:00`) is accepted and cut to its day.
@@ -148,7 +148,7 @@ fs search paper "QUERY" [--path P] [--role R] [--before D] [--after D] [--topk N
 BM25 over paper title (counted twice), abstract and dataset names.
 
 ```
-fs search paper "LSM tree compaction" --before 2024-10-01 --topk 50
+fs search paper "LSM tree compaction" --before 2024-10-01 --topk 20
 fs search paper "adaptive retrieval" --path information-retrieval --role all --after 2023-01-01
 ```
 
@@ -173,8 +173,8 @@ fs read TARGET... [options]
 **TARGET** (up to 10 per call) can be:
 - a folder path, or a page path (`.md`);
 - a node id: `page:<hex>` (wiki pages) or `wiki:<path>`;
-- an arXiv id;
-- `<arXiv id>/<facet>`, where facet is one of `overview`, `problem`, `method`, `evaluation`, `mechanism` (case-insensitive; plurals accepted). Most papers have
+- a paper id;
+- `<paper id>/<facet>`, where facet is one of `overview`, `problem`, `method`, `evaluation`, `mechanism` (case-insensitive; plurals accepted). Most papers have
   `problem`, `method` and `evaluation`; `mechanism` exists when the paper has a mechanism or theory part; `overview`
   is rare. `fs read <id>` lists the ones that exist.
   Old-style ids work the same way (`cs/0407046`, `cs/0407046/method`).
@@ -183,7 +183,7 @@ With several targets, a target that fails becomes a `not_found` warning; with on
 
 ```
 fs read information-retrieval/agentic-search/adaptive-retrieval --stat
-fs read information-retrieval/agentic-search/adaptive-retrieval --papers --role all --before 2024-10-01 --topk 100
+fs read information-retrieval/agentic-search/adaptive-retrieval --papers --role all --before 2024-10-01 --topk 20
 fs read information-retrieval/agentic-search/adaptive-retrieval/Methods/confidence-gated-retrieval.md --sections
 fs read information-retrieval/agentic-search/adaptive-retrieval/Methods/confidence-gated-retrieval.md --section "Core Idea"
 fs read 2202.04522 2307.16693/method --max-chars 3000
@@ -206,7 +206,7 @@ fs read information-retrieval/agentic-search --grep "confidence gated" --query "
   - The first chunk also has a `Sections: ...` line.
   - The last line is either the command for the next chunk or `<<< end of page >>>`.
   - With `--json`: `{"kind": "page", "path", "node_id", "title", "nature": "synthesis", "chars_total": int, "range": [start, end], "sections": [str]|null, "next_offset": int|null, "content": str}`
-- **arXiv id**: `{"kind": "paper", "paper_id", "title", "date", "facets": [str], "routes": [{"subtopic", "role"}], "abstract": {"text", "nature": "original", "source"} | null}`. `facets` lists the facet pages that exist for this paper; `abstract` is the paper's own arXiv abstract (the only original text `fs` gives), `null` when unknown.
+- **paper id**: `{"kind": "paper", "paper_id", "title", "date", "facets": [str], "routes": [{"subtopic", "role"}], "abstract": {"text", "nature": "original", "source"} | null}`. `facets` lists the facet pages that exist for this paper; `abstract` is the paper's own abstract (the only original text `fs` gives), `null` when unknown.
 - **`<id>/<facet>`**: the paper's synthesis page, with the same output as a page. In JSON, `kind` is `paper_facet` and there are extra `paper_id` and `facet` fields.
 
 **Page options**
@@ -264,7 +264,7 @@ The given papers themselves are not returned. Clusters that hold only given pape
 
 ```
 fs related 2202.04522 2307.16693
-fs related 2202.04522 2307.16693 --by-paper --before 2024-10-01 --topk 50
+fs related 2202.04522 2307.16693 --by-paper --before 2024-10-01 --topk 20
 fs related 2210.03629 --facet methods --papers-per-cluster 5
 ```
 

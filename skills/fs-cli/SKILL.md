@@ -1,17 +1,17 @@
 ---
 name: fs-cli
-description: Search ~1.01M computer-science arXiv papers and a curated research wiki with the `fs` command (FrontierScholar CLI). Use it whenever a task needs CS literature, even if FrontierScholar is not mentioned. This covers finding papers on a topic or before a date cut-off, building a related-work or reading list, finding papers similar to given ones, checking a paper's abstract, method, evaluation or first-version date, finding which papers use a benchmark or dataset, and finding the open problems and rising approaches of a research area. Prefer it over memory for arXiv ids, titles and dates.
+description: Search ~1.01M computer-science papers and a curated research wiki with the `fs` command (FrontierScholar CLI). Use it whenever a task needs CS literature, even if FrontierScholar is not mentioned. This covers finding papers on a topic or before a date cut-off, building a related-work or reading list, finding papers similar to given ones, checking a paper's abstract, method, evaluation or first-version date, finding which papers use a benchmark or dataset, and finding the open problems and rising approaches of a research area. Prefer it over memory for paper ids, titles and dates.
 license: Apache-2.0
 compatibility: The `fs` command (`pip install frontier-scholar`, Python 3.8+, no other dependencies). It needs network access to https://frontier-scholar.com; no account or API key is needed for anonymous use.
 metadata:
-  version: "2.4.4"
+  version: "2.4.5"
   skill-author: FrontierScholar
-  last-reviewed: "2026-11-04"
+  last-reviewed: "2026-11-05"
 ---
 
 # FrontierScholar CLI
 
-FrontierScholar indexes about 1.01M computer-science arXiv papers, with first versions up to 2026-10-09, and organises
+FrontierScholar indexes about 1.01M computer-science papers, with first versions up to 2026-10-09, and organises
 them into a research wiki of about 21k areas: 20 domains, their topics, and the subtopics under those. Each subtopic has:
 - an overview;
 - pages for its research problems, method families, datasets/benchmarks/tools and theories;
@@ -19,15 +19,15 @@ them into a research wiki of about 21k areas: 20 domains, their topics, and the 
 - a frontier page of open gaps and approach trends, mostly as of 2026-09 or 2026-10.
 
 Most papers also have their own summary pages: problem, method and evaluation, plus mechanism when the paper has a
-mechanism or theory part. `fs read <id>` lists which exist and gives the paper's **original arXiv abstract**.
+mechanism or theory part. `fs read <id>` lists which exist and gives the paper's **original abstract**.
 
 `fs` is a read-only command-line client for all of this. Every answer comes from one fixed data snapshot (`fs --version`
 prints its id). Answers are lookups and BM25 keyword
 rankings over that snapshot: nothing is generated, and nothing comes from the web. That is why it is the reliable
-source for arXiv ids and dates.
+source for paper ids and dates.
 
 The wiki and paper pages are **summaries written from the papers, not the papers' own text**. Use them to understand
-and to find evidence, then cite the arXiv ids they name. The only original text `fs` gives is a paper's abstract
+and to find evidence, then cite the paper ids they name. The only original text `fs` gives is a paper's abstract
 (`fs read <id>`, field `abstract`, `"nature": "original"`). When a task asks for verbatim quotes, quote the abstract.
 Do not quote summary sentences as if the paper said them.
 
@@ -83,7 +83,7 @@ another rather than many in parallel.
         ├── Mechanisms/                    theories and mechanisms (same layout; not in every subtopic)
         └── (papers)                       listed with: fs read <subtopic> --papers
 
-sources/<aa>/<bb>/10.48550_arXiv.<id>/     one folder per paper: Problem.md, Method.md, Evaluation.md, and
+sources/<aa>/<bb>/<paper id>/            one folder per paper: Problem.md, Method.md, Evaluation.md, and
                                            Mechanism_Theory.md if the paper has a mechanism or theory part;
                                            read with fs read <id>/<facet>
 ```
@@ -96,7 +96,7 @@ sources/<aa>/<bb>/10.48550_arXiv.<id>/     one folder per paper: Problem.md, Met
   the text does not mention them; read them with `fs read <id>`.
 - A subtopic overview ends with **`## Coverage and Frontier`**: how many papers it has, their date range, and the
   date of its frontier page.
-- Dates are arXiv **first-version** dates (`YYYY-MM-DD`).
+- Dates are **first-version** dates (`YYYY-MM-DD`).
 
 ## Quick start
 

@@ -5,12 +5,12 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "frontier-scholar"
 dynamic = ["version"]
-description = "fs: the command-line client of FrontierScholar, a research wiki over ~1M computer-science arXiv papers, for coding agents."
+description = "fs: the command-line client of FrontierScholar, a research wiki over ~1M computer-science papers, for coding agents."
 readme = "README.md"
 requires-python = ">=3.8"
 license = { text = "Apache-2.0" }
 dependencies = []
-keywords = ["arxiv", "literature-search", "research", "wiki", "agents", "cli"]
+keywords = ["papers", "literature-search", "research", "wiki", "agents", "cli"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: Apache Software License",

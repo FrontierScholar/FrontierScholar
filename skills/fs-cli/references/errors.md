@@ -54,7 +54,7 @@ A warning does not stop the answer: the command returns what it could, and lists
 | `code` | Commands | Meaning | Effect on your answer |
 |---|---|---|---|
 | `not_found` | read (several targets), meta, related | These ids or targets do not exist in the wiki (listed in `ids`); the rest were answered | They are not in this wiki, which does not mean they do not exist: keep a paper you trust from elsewhere, and say FrontierScholar could not check it |
-| `invalid_id` | meta, related | These inputs are not arXiv ids | Fix or drop them |
+| `invalid_id` | meta, related | These inputs are not paper ids | Fix or drop them |
 | `duplicates_removed` | meta | Repeated ids were answered once | Nothing is missing |
 | `date_unknown` | meta | The first-version date of these papers is unknown | A date cut-off cannot be confirmed for them: leave them out or say so |
 | `grep_partial` | search wiki --grep | Only the most relevant `checked` of `candidates` pages were checked; `total` counts only those | Matches may be missing: narrow `--path` or use a rarer phrase |
